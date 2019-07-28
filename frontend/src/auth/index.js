@@ -1,5 +1,5 @@
 export const signupCompany = company => {
-  return fetch("http://localhost:8080/signup/company", {
+  return fetch(`${process.env.REACT_APP_API_URL}/signup/company`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -14,7 +14,7 @@ export const signupCompany = company => {
 };
 
 export const signupStudent = student => {
-  return fetch("http://localhost:8080/signup/student", {
+  return fetch(`${process.env.REACT_APP_API_URL}/signup/student`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -29,7 +29,7 @@ export const signupStudent = student => {
 };
 
 export const signin = user => {
-  return fetch("http://localhost:8080/signin", {
+  return fetch(`${process.env.REACT_APP_API_URL}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -53,7 +53,7 @@ export const authenticate = (jwt, next) => {
 export const signout = next => {
   if (typeof window !== "undefined") localStorage.removeItem("jwt");
   next();
-  return fetch("http://localhost:8080/signout", {
+  return fetch(`${process.env.REACT_APP_API_URL}/signout`, {
     method: "GET"
   })
     .then(response => {

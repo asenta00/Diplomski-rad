@@ -50,7 +50,10 @@ const Menu = ({ history }) => (
             >
               Sign Out
             </Nav.Link>
-            <Nav.Link>
+            <Nav.Link
+              href={`/user/${isAuthenticated().user._id}`}
+              style={isActive(history, `/user/${isAuthenticated().user._id}`)}
+            >
               {isAuthenticated().user.firstName || isAuthenticated().user.name}
             </Nav.Link>
           </>

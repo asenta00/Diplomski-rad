@@ -7,16 +7,16 @@ require("dotenv").config();
 let userExists;
 let user;
 exports.signup = async (req, res) => {
-  if (req.body.role == "student") {
-    userExists = await Student.findOne({ email: req.body.email });
-  } else if (req.body.role == "company") {
-    userExists = await Company.findOne({ email: req.body.email });
+  if (req.body.role == "student" || req.body.role == "company") {
+    userExists =
+      (await Company.findOne({ email: req.body.email })) ||
+      (await Student.findOne({ email: req.body.email }));
   } else {
     userExists = false;
   }
   if (userExists)
     return res.status(403).json({
-      error: "Email is taken!"
+      error: "Email već postoji u bazi registriranih korisnika!"
     });
   if (req.body.role == "student") {
     user = await new Student(req.body);

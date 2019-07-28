@@ -5,6 +5,7 @@ import Menu from "./core/Menu";
 import SignupStudent from "./user/SignupStudent";
 import SignupCompany from "./user/SignupCompany";
 import Signin from "./user/Signin";
+import Profile from "./user/Profile";
 
 const MainRouter = () => (
   <div>
@@ -14,6 +15,7 @@ const MainRouter = () => (
       <Route exact path="/signup/student" component={SignupStudent} />
       <Route exact path="/signup/company" component={SignupCompany} />
       <Route exact path="/signin" component={Signin} />
+      <Route exact path="/user/:userId" component={Profile} />
     </Switch>
   </div>
 );

@@ -25,7 +25,7 @@ exports.studentSignupValidator = (req, res, next) => {
   req.check("firstName", "Polje Ime ne smije biti prazno.").notEmpty();
   req.check("firstName", "Ime mora sadržavati između 3 i 30 slova.").isLength({
     min: 3,
-    max: 20
+    max: 30
   });
   req.check("lastName", "Polje Prezime ne smije biti prazno.").notEmpty();
   req
@@ -75,7 +75,7 @@ exports.companySignupValidator = (req, res, next) => {
   req.check("name", "Polje Ime ne smije biti prazno.").notEmpty();
   req.check("name", "Ime mora sadržavati između 3 i 30 slova.").isLength({
     min: 3,
-    max: 20
+    max: 30
   });
   req.check("body", "Polje Opis tvrtke ne smije biti prazno.").notEmpty();
   req.check("body", "Polje Opis tvrtke mora biti veće od 4 znaka").isLength({

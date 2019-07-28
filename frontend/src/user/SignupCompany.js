@@ -29,7 +29,9 @@ class SignupCompany extends Component {
       password,
       role
     };
+    console.log("info o company ", company);
     signupCompany(company).then(data => {
+      console.log("data iz signup company ", data);
       if (data.error) this.setState({ error: data.error });
       else
         this.setState({

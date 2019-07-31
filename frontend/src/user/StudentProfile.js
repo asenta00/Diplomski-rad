@@ -4,7 +4,7 @@ class StudentProfile extends Component {
   render() {
     const student = this.props.user;
     return (
-      <div>
+      <div className="lead mt-5">
         <h2 className="mt-5 mb-5">
           {student.firstName} {student.lastName}
         </h2>

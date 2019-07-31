@@ -30,7 +30,7 @@ exports.allStudents = (req, res) => {
         error: err
       });
     }
-    res.json({ students });
+    res.json(students);
   }).select(
     "firstName lastName email birthdate fieldOfStudy degree interes paid role updated created"
   );
@@ -42,7 +42,7 @@ exports.allCompanies = (req, res) => {
         error: err
       });
     }
-    res.json({ companies });
+    res.json(companies);
   }).select("name email body contact role updated created ");
 };
 

@@ -9,8 +9,17 @@ class Signin extends Component {
       password: "",
       error: "",
       redirectToReferer: false,
-      loading: false
+      loading: false,
+      type: "password"
     };
+    this.showHide = this.showHide.bind(this);
+  }
+  showHide(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    this.setState({
+      type: this.state.type === "password" ? "input" : "password"
+    });
   }
 
   handleChange = name => event => {
@@ -52,10 +61,15 @@ class Signin extends Component {
         <label className="text-muted">Lozinka</label>
         <input
           onChange={this.handleChange("password")}
-          type="password"
+          type={this.state.type}
           className="form-control"
           value={password}
         />
+        <button className="btn btn-primary btn-sm" onClick={this.showHide}>
+          {this.state.type === "password"
+            ? "Prikaži lozinku"
+            : "Sakrij lozinku"}
+        </button>
       </div>
       <button onClick={this.clickSubmit} className="btn btn-raised btn-primary">
         Prijava

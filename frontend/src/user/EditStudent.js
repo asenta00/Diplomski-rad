@@ -1,25 +1,28 @@
 import React, { Component } from "react";
 import ReactChipInput from "react-chip-input";
-import { signupStudent } from "../auth";
-import { Link } from "react-router-dom";
-class SignupStudent extends Component {
+import { isAuthenticated } from "../auth";
+import { read, update } from "./apiUser";
+import { Redirect } from "react-router-dom";
+
+class EditStudent extends Component {
   constructor() {
     super();
     this.state = {
+      id: "",
       firstName: "",
       lastName: "",
       email: "",
-      birthdate: Date,
       fieldOfStudy: "",
       degree: "",
       interest: [],
-      role: "student",
       paid: "",
       password: "",
+      redirectToProfile: false,
       error: "",
-      open: false,
+      role: "student",
       type: "password"
     };
+
     this.showHide = this.showHide.bind(this);
   }
   showHide(e) {
@@ -28,6 +31,31 @@ class SignupStudent extends Component {
     this.setState({
       type: this.state.type === "password" ? "input" : "password"
     });
+  }
+  init = userId => {
+    const token = isAuthenticated().token;
+    read(userId, token).then(data => {
+      if (data.error) {
+        this.setState({ redirectToSignin: true });
+      } else {
+        this.setState({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          fieldOfStudy: data.fieldOfStudy,
+          degree: data.degree,
+          interest: data.interest,
+          paid: data.paid,
+          password: data.password,
+          id: data._id
+        });
+      }
+    });
+  };
+  componentDidMount() {
+    this.userData = new FormData();
+    const userId = this.props.userId;
+    this.init(userId);
   }
   addChip = value => {
     const interest = this.state.interest.slice();
@@ -40,62 +68,83 @@ class SignupStudent extends Component {
     this.setState({ interest });
   };
   handleChange = name => event => {
-    this.setState({ error: "" });
     this.setState({ [name]: event.target.value });
+  };
+
+  isValid = () => {
+    const { firstName, lastName, email, interest, password } = this.state;
+    if (firstName.length === 0) {
+      this.setState({ error: "Polje Ime ne smije biti prazno!" });
+      return false;
+    }
+    if (lastName.length === 0) {
+      this.setState({ error: "Polje Prezime ne smije biti prazno!" });
+      return false;
+    }
+    if (interest.length === 0) {
+      this.setState({ error: "Polje Interes ne smije biti prazno!" });
+      return false;
+    }
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      this.setState({ error: "Email nema ispravan format!" });
+      return false;
+    }
+    if (password != undefined) {
+      if (password.length >= 1 && password.length <= 5) {
+        this.setState({ error: "Lozinka mora imati najmanje 6 znakova!" });
+        return false;
+      }
+    }
+    return true;
   };
 
   clickSubmit = event => {
     event.preventDefault();
-    const {
-      firstName,
-      lastName,
-      email,
-      birthdate,
-      fieldOfStudy,
-      degree,
-      interest,
-      role,
-      paid,
-      password
-    } = this.state;
+    if (this.isValid()) {
+      const {
+        firstName,
+        lastName,
+        email,
+        fieldOfStudy,
+        degree,
+        interest,
+        role,
+        paid,
+        password
+      } = this.state;
 
-    const student = {
-      firstName,
-      lastName,
-      email,
-      birthdate,
-      fieldOfStudy,
-      degree,
-      interest,
-      role,
-      paid,
-      password
-    };
-    signupStudent(student).then(data => {
-      if (data.error) this.setState({ error: data.error });
-      else
-        this.setState({
-          firstName: "",
-          lastName: "",
-          email: "",
-          birthdate: Date,
-          fieldOfStudy: "",
-          degree: "",
-          interest: [],
-          role: "student",
-          paid: "",
-          password: "",
-          error: "",
-          open: true
-        });
-    });
+      const student = {
+        firstName,
+        lastName,
+        email,
+        fieldOfStudy,
+        degree,
+        interest,
+        role,
+        paid,
+        password: password || undefined
+      };
+
+      console.log(student);
+      const studentId = this.props.userId;
+      const token = isAuthenticated().token;
+
+      update(studentId, token, student).then(data => {
+        if (data.error) this.setState({ error: data.error });
+        else {
+          this.setState({
+            redirectToProfile: true,
+            error: ""
+          });
+        }
+      });
+    }
   };
 
   signupForm = (
     firstName,
     lastName,
     email,
-    birthdate,
     fieldOfStudy,
     degree,
     interest,
@@ -119,16 +168,6 @@ class SignupStudent extends Component {
           type="text"
           className="form-control"
           value={lastName}
-        />
-      </div>
-
-      <div className="form-group">
-        <label className="text-muted">Datum rođenja</label>
-        <input
-          onChange={this.handleChange("birthdate")}
-          type="date"
-          className="form-control"
-          value={birthdate}
         />
       </div>
       <div className="form-group">
@@ -216,7 +255,7 @@ class SignupStudent extends Component {
         </button>
       </div>
       <button onClick={this.clickSubmit} className="btn btn-raised btn-primary">
-        Kreiraj profil
+        Spremi promjene
       </button>
     </form>
   );
@@ -225,36 +264,30 @@ class SignupStudent extends Component {
       firstName,
       lastName,
       email,
-      birthdate,
       fieldOfStudy,
       degree,
       interest,
       paid,
       password,
-      error,
-      open
+      id,
+      redirectToProfile,
+      error
     } = this.state;
+    if (redirectToProfile) {
+      return <Redirect to={`/user/${id}`} />;
+    }
     return (
-      <div className="container">
-        <h2 className="mt-5 mb-5">SignUp - Student</h2>
+      <div className="container mt-5">
         <div
           className="alert alert-danger"
           style={{ display: error ? "" : "none" }}
         >
           {error}
         </div>
-        <div
-          className="alert alert-info"
-          style={{ display: open ? "" : "none" }}
-        >
-          Profil je uspješno kreiran. Sada se možete prijaviti u sustav
-          <Link to="/signin">(SignIn).</Link>
-        </div>
         {this.signupForm(
           firstName,
           lastName,
           email,
-          birthdate,
           fieldOfStudy,
           degree,
           interest,
@@ -266,4 +299,4 @@ class SignupStudent extends Component {
   }
 }
 
-export default SignupStudent;
+export default EditStudent;

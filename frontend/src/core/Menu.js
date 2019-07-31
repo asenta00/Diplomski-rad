@@ -18,6 +18,7 @@ const Menu = ({ history }) => (
         <Nav.Link href="/" style={isActive(history, "/")}>
           Home
         </Nav.Link>
+
         {!isAuthenticated() && (
           <>
             <NavDropdown title="Signup" id="basic-nav-dropdown">
@@ -39,8 +40,34 @@ const Menu = ({ history }) => (
             </Nav.Link>
           </>
         )}
+
         {isAuthenticated() && (
           <>
+            {isAuthenticated().user.role === "admin" && (
+              <>
+                <Nav.Link
+                  href="/students"
+                  style={isActive(history, "/students")}
+                >
+                  Studenti
+                </Nav.Link>
+                <Nav.Link
+                  href="/companies"
+                  style={isActive(history, "/companies")}
+                >
+                  Tvrtke
+                </Nav.Link>
+              </>
+            )}
+            {isAuthenticated().user.role !== "admin" && (
+              <Nav.Link
+                href={`/user/${isAuthenticated().user._id}`}
+                style={isActive(history, `/user/${isAuthenticated().user._id}`)}
+              >
+                {isAuthenticated().user.firstName ||
+                  isAuthenticated().user.name}
+              </Nav.Link>
+            )}
             <Nav.Link
               style={
                 (isActive(history, "/signout"),
@@ -49,12 +76,6 @@ const Menu = ({ history }) => (
               onClick={() => signout(() => history.push("/"))}
             >
               Sign Out
-            </Nav.Link>
-            <Nav.Link
-              href={`/user/${isAuthenticated().user._id}`}
-              style={isActive(history, `/user/${isAuthenticated().user._id}`)}
-            >
-              {isAuthenticated().user.firstName || isAuthenticated().user.name}
             </Nav.Link>
           </>
         )}

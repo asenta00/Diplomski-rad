@@ -20,9 +20,10 @@ exports.postById = (req, res, next, id) => {
 exports.getPosts = (req, res) => {
   const posts = Post.find()
     .populate("postedBy", "_id name")
-    .select("_id title body period paid capacity")
+    .select("_id title body period paid capacity fieldOfStudy created")
+    .sort({ created: -1 })
     .then(posts => {
-      res.json({ posts });
+      res.json(posts);
     })
     .catch(err => console.log(err));
 };
@@ -80,18 +81,41 @@ exports.isPoster = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
-  let post = req.post;
-  post = _.extend(post, req.body);
-  post.updated = Date.now();
-  post.save(err => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (err, fields) => {
     if (err) {
       return res.status(400).json({
         error: err
       });
     }
-    res.json(post);
+    let post = req.post;
+    post = post = _.extend(post, fields);
+    post.updated = Date.now();
+    post.save(err => {
+      if (err) {
+        return res.status(400).json({
+          error: err
+        });
+      }
+      res.json(post);
+    });
   });
 };
+
+// exports.updatePost = (req, res, next) => {
+//   let post = req.post;
+//   post = _.extend(post, req.body);
+//   post.updated = Date.now();
+//   post.save(err => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: err
+//       });
+//     }
+//     res.json(post);
+//   });
+// };
 
 exports.deletePost = (req, res) => {
   let post = req.post;
@@ -105,4 +129,8 @@ exports.deletePost = (req, res) => {
       message: "Post is deleted successfully"
     });
   });
+};
+
+exports.singlePost = (req, res) => {
+  return res.json(req.post);
 };

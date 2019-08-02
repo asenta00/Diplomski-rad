@@ -70,9 +70,11 @@ class EditCompany extends Component {
       this.setState({ error: "Email nema ispravan format!" });
       return false;
     }
-    if (password.length >= 1 && password.length <= 5) {
-      this.setState({ error: "Lozinka mora imati najmanje 6 znakova!" });
-      return false;
+    if (password !== undefined) {
+      if (password.length >= 1 && password.length <= 5) {
+        this.setState({ error: "Lozinka mora imati najmanje 6 znakova!" });
+        return false;
+      }
     }
     return true;
   };
@@ -116,6 +118,8 @@ class EditCompany extends Component {
       <div className="form-group">
         <label className="text-muted">Opis tvrtke</label>
         <textarea
+          rows="4"
+          style={{ height: "100%" }}
           onChange={this.handleChange("body")}
           type="text"
           className="form-control"
@@ -125,6 +129,8 @@ class EditCompany extends Component {
       <div className="form-group">
         <label className="text-muted">Kontakt</label>
         <textarea
+          rows="4"
+          style={{ height: "100%" }}
           onChange={this.handleChange("contact")}
           type="text"
           className="form-control"

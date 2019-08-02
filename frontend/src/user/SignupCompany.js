@@ -72,6 +72,8 @@ class SignupCompany extends Component {
       <div className="form-group">
         <label className="text-muted">Opis tvrtke</label>
         <textarea
+          rows="4"
+          style={{ height: "100%" }}
           onChange={this.handleChange("body")}
           type="text"
           className="form-control"
@@ -81,6 +83,8 @@ class SignupCompany extends Component {
       <div className="form-group">
         <label className="text-muted">Kontakt</label>
         <textarea
+          rows="2"
+          style={{ height: "100%" }}
           onChange={this.handleChange("contact")}
           type="text"
           className="form-control"

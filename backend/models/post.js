@@ -18,14 +18,19 @@ const postSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   },
+  updated: Date,
   capacity: {
     type: Number,
     required: true
   },
-  photo: {
-    data: Buffer,
-    contentType: String
+  fieldOfStudy: {
+    type: String,
+    required: true
   },
+  // photo: {
+  //   data: Buffer,
+  //   contentType: String
+  // },
   postedBy: {
     type: ObjectId,
     ref: "Company"

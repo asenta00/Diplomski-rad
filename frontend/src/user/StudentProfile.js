@@ -9,20 +9,28 @@ class StudentProfile extends Component {
           {student.firstName} {student.lastName}
         </h2>
         <p>
-          {" "}
-          Datum rođenja: {`${new Date(student.birthdate).toLocaleDateString()}`}
+          <b>Datum rođenja:</b>
+          {`${new Date(student.birthdate).toLocaleDateString()}`}
         </p>
-        <p> Razina studija: {student.degree}</p>
-        <p> Smjer studija: {student.fieldOfStudy}</p>
-        <p> Područje interesa:</p>
+        <p>
+          <b>Razina studija:</b> {student.degree}
+        </p>
+        <p>
+          <b>Smjer studija:</b> {student.fieldOfStudy}
+        </p>
+        <p>
+          <b>Područje interesa:</b>
+        </p>
         <ul>
           {student.interest.map(interes => (
             <li key={interes.toString()}>{interes}</li>
           ))}
         </ul>
-        <p> Email: {student.email}</p>
         <p>
-          {student.firstName} se pridružuje:{" "}
+          <b>Email:</b> {student.email}
+        </p>
+        <p>
+          <b>{student.firstName}</b> se pridružuje:{" "}
           {`${new Date(student.created).toLocaleDateString()}`}
         </p>
       </div>

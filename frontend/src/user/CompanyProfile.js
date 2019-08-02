@@ -6,10 +6,14 @@ class CompanyProfile extends Component {
       <div>
         <h2 className="mt-5 mb-5">{company.name}</h2>
         <p>{company.body}</p>
-        <p>Email: {company.email}</p>
-        <p>Kontakt: {company.contact}</p>
         <p>
-          {company.name} se pridružuje:{" "}
+          <b>Email:</b> {company.email}
+        </p>
+        <p>
+          <b>Kontakt:</b> {company.contact}
+        </p>
+        <p>
+          <b>{company.name}</b> se pridružuje:{" "}
           {`${new Date(company.created).toLocaleDateString()}`}
         </p>
       </div>

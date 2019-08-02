@@ -89,7 +89,7 @@ class EditStudent extends Component {
       this.setState({ error: "Email nema ispravan format!" });
       return false;
     }
-    if (password != undefined) {
+    if (password !== undefined) {
       if (password.length >= 1 && password.length <= 5) {
         this.setState({ error: "Lozinka mora imati najmanje 6 znakova!" });
         return false;

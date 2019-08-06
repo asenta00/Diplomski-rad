@@ -15,6 +15,7 @@ import Posts from "./post/Posts";
 import SinglePost from "./post/SinglePost";
 import EditPost from "./post/EditPost";
 import Algoritam from "./core/Algoritam";
+import AlgorithmCompany from "./core/AlgorithmCompany";
 
 const MainRouter = () => (
   <div>
@@ -23,6 +24,11 @@ const MainRouter = () => (
       <PrivateRoute exact path="/post/create" component={NewPost} />
       <Route exact path="/" component={Home} />
       <Route exact path="/suggestions/:userId" component={Algoritam} />
+      <PrivateRoute
+        exact
+        path="/students/:userId"
+        component={AlgorithmCompany}
+      />
       <Route exact path="/post/:postId" component={SinglePost} />
       <PrivateRoute exact path="/post/edit/:postId" component={EditPost} />
       <Route exact path="/posts" component={Posts} />

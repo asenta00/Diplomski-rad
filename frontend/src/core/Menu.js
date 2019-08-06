@@ -47,12 +47,23 @@ const Menu = ({ history }) => (
               Prakse
             </Nav.Link>
             {isAuthenticated().user.role === "company" && (
-              <Nav.Link
-                href={`/post/create`}
-                style={isActive(history, `/post/create`)}
-              >
-                Kreiraj oglas
-              </Nav.Link>
+              <>
+                <Nav.Link
+                  href={`/students/${isAuthenticated().user._id}`}
+                  style={isActive(
+                    history,
+                    `/students/${isAuthenticated().user._id}`
+                  )}
+                >
+                  Studenti
+                </Nav.Link>
+                <Nav.Link
+                  href={`/post/create`}
+                  style={isActive(history, `/post/create`)}
+                >
+                  Kreiraj oglas
+                </Nav.Link>
+              </>
             )}
             {isAuthenticated().user.role === "student" && (
               <Nav.Link

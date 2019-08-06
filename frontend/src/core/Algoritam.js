@@ -20,7 +20,7 @@ class Algoritam extends Component {
     return text.match(/\S+/g);
   }
 
-  // A function to validate a toke
+  // A function to validate a token
   validate(token) {
     return /\w{2,}/.test(token);
   }
@@ -40,14 +40,11 @@ class Algoritam extends Component {
     return totalwords;
   }
 
-  // Get the document frequencies across all documents
-  docFreq(data, id, fieldOfStudy) {
-    // console.log(data);
+  postFreq(data, id, fieldOfStudy) {
     const { calculated, dict, user } = this.state;
     if (user) {
       var tokens = this.tokenize(data);
       let totalwords = this.termFreq(data);
-      // console.log("Ukupan broj rijeci ovog posta ", totalwords);
       var listTf = {};
       // A temporary dictionary of words in this document
       var tempDict = {};
@@ -86,7 +83,6 @@ class Algoritam extends Component {
       if (data.error) {
         this.setState({ redirectToSignin: true });
       } else {
-        console.log(data);
         this.setState({
           user: data
         });
@@ -111,7 +107,7 @@ class Algoritam extends Component {
     return (
       <div className="container">
         {posts.map(post => {
-          this.docFreq(post.body, post._id, post.fieldOfStudy);
+          this.postFreq(post.body, post._id, post.fieldOfStudy);
         })}
         <div className="row mt-2 ml-2 mr-2">
           {calculated &&
@@ -123,8 +119,7 @@ class Algoritam extends Component {
 
           {sorted &&
             sorted.map(item => {
-              if (item.fieldOfStudy == user.fieldOfStudy) {
-                console.log(item);
+              if (item.fieldOfStudy === user.fieldOfStudy) {
                 return <RenderPost key={item.postId} postId={item.postId} />;
               }
             })}

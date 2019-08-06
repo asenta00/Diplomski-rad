@@ -32,7 +32,7 @@ exports.allStudents = (req, res) => {
     }
     res.json(students);
   }).select(
-    "firstName lastName email birthdate fieldOfStudy degree interes paid role updated created"
+    "firstName lastName email birthdate fieldOfStudy degree interest paid role updated created"
   );
 };
 exports.allCompanies = (req, res) => {

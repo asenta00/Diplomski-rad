@@ -54,6 +54,17 @@ const Menu = ({ history }) => (
                 Kreiraj oglas
               </Nav.Link>
             )}
+            {isAuthenticated().user.role === "student" && (
+              <Nav.Link
+                href={`/suggestions/${isAuthenticated().user._id}`}
+                style={isActive(
+                  history,
+                  `/suggestions/${isAuthenticated().user._id}`
+                )}
+              >
+                Predložene prakse
+              </Nav.Link>
+            )}
             {isAuthenticated().user.role === "admin" && (
               <>
                 <Nav.Link

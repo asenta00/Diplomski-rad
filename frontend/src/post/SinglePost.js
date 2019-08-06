@@ -16,7 +16,6 @@ class SinglePost extends Component {
       if (data.error) {
         console.log(data.error);
       } else {
-        console.log(data.postedBy._id);
         this.setState({ post: data, postedById: data.postedBy._id });
       }
     });
@@ -40,10 +39,7 @@ class SinglePost extends Component {
     }
   };
   renderPost = (post, postedById) => {
-    console.log(post);
     const posterId = post.postedBy ? `/user/${post.postedBy._id}` : "/posts";
-    console.log("saljem", postedById);
-    console.log(posterId);
     const posterName = post.postedBy ? post.postedBy.name : "Nepoznat";
     return (
       //   <div className="card col-md-4 mt-1 mb-1 ml-1 mr-1 mx-auto">
@@ -74,6 +70,15 @@ class SinglePost extends Component {
           <Link to={`/posts`} className="btn btn-raised btn-primary">
             Svi oglasi
           </Link>
+          {isAuthenticated().user.role === "student" && (
+            <Link
+              to={`/suggestions/${isAuthenticated().user._id}`}
+              className="btn btn-raised btn-primary ml-3"
+            >
+              Predložene prakse
+            </Link>
+          )}
+
           {(isAuthenticated().user._id == postedById ||
             isAuthenticated().user.role === "admin") &&
             isAuthenticated().user && (

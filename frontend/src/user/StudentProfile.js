@@ -9,7 +9,7 @@ class StudentProfile extends Component {
           {student.firstName} {student.lastName}
         </h2>
         <p>
-          <b>Datum rođenja:</b>
+          <b>Datum rođenja: </b>
           {`${new Date(student.birthdate).toLocaleDateString()}`}
         </p>
         <p>

@@ -84,8 +84,16 @@ class Profile extends Component {
               )}
           </div>
           <div className="col-md-4">
-            {isAuthenticated().user._id === currentId &&
+            {/* {isAuthenticated().user._id === currentId &&
             isAuthenticated().user.role === "student" ? (
+              ""
+            ) : (
+              <h2 className="mt-5 mb-5 ml-5">Kreirani oglasi</h2>
+            )} */}
+
+            {(isAuthenticated().user.role === "admin" ||
+              isAuthenticated().user.role === "company") &&
+            user.role == "student" ? (
               ""
             ) : (
               <h2 className="mt-5 mb-5 ml-5">Kreirani oglasi</h2>

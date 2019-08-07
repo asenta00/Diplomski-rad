@@ -55,7 +55,7 @@ const Menu = ({ history }) => (
                     `/students/${isAuthenticated().user._id}`
                   )}
                 >
-                  Studenti
+                  Predloženi studenti
                 </Nav.Link>
                 <Nav.Link
                   href={`/post/create`}

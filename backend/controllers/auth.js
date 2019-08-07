@@ -55,59 +55,6 @@ exports.signin = async (req, res) => {
         "Navedenog korisnika nema u bazi. Molimo Vas da provjerite jeste li ispravno unijeli podatke ili kreirajte novi korisnički račun (student/tvrtka)."
     });
   }
-  // const { email, password, role } = req.body;
-  // if (role == "student") {
-  //   Student.findOne({ email }, (err, user) => {
-  //     if (err || !user) {
-  //       return res.status(401).json({
-  //         error: "Student with that email does not exists. Please signin."
-  //       });
-  //     }
-  //     if (!user.authenticate(password)) {
-  //       return res.status(401).json({
-  //         error: "Email and password do not match"
-  //       });
-  //     }
-  //     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  //     res.cookie("t", token, { expire: new Date() + 9999 });
-  //     const { _id, firstName, lastName, email } = user;
-  //     return res.json({ token, user: { _id, email, firstName, lastName } });
-  //   });
-  // } else if (role == "company") {
-  //   Company.findOne({ email }, (err, user) => {
-  //     if (err || !user) {
-  //       return res.status(401).json({
-  //         error: "Company with that email does not exists. Please signin."
-  //       });
-  //     }
-  //     if (!user.authenticate(password)) {
-  //       return res.status(401).json({
-  //         error: "Email and password do not match"
-  //       });
-  //     }
-  //     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  //     res.cookie("t", token, { expire: new Date() + 9999 });
-  //     const { _id, name, email } = user;
-  //     return res.json({ token, user: { _id, email, name } });
-  //   });
-  // } else if (role == "admin") {
-  //   Admin.findOne({ email }, (err, user) => {
-  //     if (err || !user) {
-  //       return res.status(401).json({
-  //         error: "Admin with that email does not exists. Please signin."
-  //       });
-  //     }
-  //     if (!user.authenticate(password)) {
-  //       return res.status(401).json({
-  //         error: "Email and password do not match"
-  //       });
-  //     }
-  //     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  //     res.cookie("t", token, { expire: new Date() + 9999 });
-  //     const { _id, name, email } = user;
-  //     return res.json({ token, user: { _id, email, name } });
-  //   });
-  // }
 };
 
 exports.signout = (req, res) => {

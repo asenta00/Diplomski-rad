@@ -14,7 +14,7 @@ import PrivateRoute from "./auth/PrivateRoute";
 import Posts from "./post/Posts";
 import SinglePost from "./post/SinglePost";
 import EditPost from "./post/EditPost";
-import Algoritam from "./core/Algoritam";
+import AlgorithmStudent from "./core/AlgorithmStudent";
 import AlgorithmCompany from "./core/AlgorithmCompany";
 
 const MainRouter = () => (
@@ -23,7 +23,7 @@ const MainRouter = () => (
     <Switch>
       <PrivateRoute exact path="/post/create" component={NewPost} />
       <Route exact path="/" component={Home} />
-      <Route exact path="/suggestions/:userId" component={Algoritam} />
+      <Route exact path="/suggestions/:userId" component={AlgorithmStudent} />
       <PrivateRoute
         exact
         path="/students/:userId"

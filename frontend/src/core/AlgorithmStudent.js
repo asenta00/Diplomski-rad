@@ -4,7 +4,7 @@ import { read } from "../user/apiUser";
 import { isAuthenticated } from "../auth/index";
 import RenderPost from "../post/RenderPost";
 
-class Algoritam extends Component {
+class AlgorithmStudent extends Component {
   constructor() {
     super();
     this.state = {
@@ -129,4 +129,4 @@ class Algoritam extends Component {
   }
 }
 
-export default Algoritam;
+export default AlgorithmStudent;

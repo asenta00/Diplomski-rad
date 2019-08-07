@@ -177,7 +177,7 @@ class EditStudent extends Component {
           onChange={this.handleChange("degree")}
           value={degree}
         >
-          <option value="" selected disabled>
+          <option value="" className="selected" disabled>
             Odaberi razinu studija
           </option>
           <option value="Preddiplomski sveučilišni studij">
@@ -196,7 +196,7 @@ class EditStudent extends Component {
           onChange={this.handleChange("fieldOfStudy")}
           value={fieldOfStudy}
         >
-          <option value="" selected disabled>
+          <option value="" className="selected" disabled>
             Odaberi smjer studija
           </option>
           <option value="Elektrotehnika">Elektrotehnika</option>
@@ -224,7 +224,7 @@ class EditStudent extends Component {
           onChange={this.handleChange("paid")}
           value={paid}
         >
-          <option value="" selected disabled>
+          <option value="" className="selected" disabled>
             Mogući odabir: DA/NE
           </option>
           <option value="true">DA</option>

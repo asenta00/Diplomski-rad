@@ -73,7 +73,7 @@ class SignupStudent extends Component {
     };
     signupStudent(student).then(data => {
       if (data.error) this.setState({ error: data.error });
-      else
+      else {
         this.setState({
           firstName: "",
           lastName: "",
@@ -88,6 +88,8 @@ class SignupStudent extends Component {
           error: "",
           open: true
         });
+        window.scrollTo(0, 0);
+      }
     });
   };
 
@@ -109,7 +111,7 @@ class SignupStudent extends Component {
           onChange={this.handleChange("firstName")}
           type="text"
           className="form-control"
-          value={firstName}
+          defaultValue={firstName}
         />
       </div>
       <div className="form-group">
@@ -128,7 +130,7 @@ class SignupStudent extends Component {
           onChange={this.handleChange("birthdate")}
           type="date"
           className="form-control"
-          value={birthdate}
+          defaultValue={birthdate}
         />
       </div>
       <div className="form-group">
@@ -138,7 +140,7 @@ class SignupStudent extends Component {
           onChange={this.handleChange("degree")}
           value={degree}
         >
-          <option value="" selected disabled>
+          <option value="" className="selected " disabled>
             Odaberi razinu studija
           </option>
           <option value="Preddiplomski sveučilišni studij">
@@ -157,7 +159,7 @@ class SignupStudent extends Component {
           onChange={this.handleChange("fieldOfStudy")}
           value={fieldOfStudy}
         >
-          <option value="" selected disabled>
+          <option value="" className="selected " disabled>
             Odaberi smjer studija
           </option>
           <option value="Elektrotehnika">Elektrotehnika</option>
@@ -185,7 +187,7 @@ class SignupStudent extends Component {
           onChange={this.handleChange("paid")}
           value={paid}
         >
-          <option value="" selected disabled>
+          <option value="" className="selected " disabled>
             Mogući odabir: DA/NE
           </option>
           <option value="true">DA</option>

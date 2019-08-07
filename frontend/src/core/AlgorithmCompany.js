@@ -59,11 +59,11 @@ class AlgorithmCompany extends Component {
           tempDict[token] = true;
         }
       }
-
+      // For every student calculate frequency
       for (var j = 0; j < students.length; j++) {
         for (var i = 0; i < students[j].interest.length; i++) {
           var key = students[j].interest[i].toLowerCase();
-          // da li postoji rijec u post-u
+          // is there word in tempDict?
           if (tempDict[key]) {
             dict[key] = dict[key] ? parseInt(dict[key]) + 1 : (dict[key] = 1);
           }
@@ -121,7 +121,6 @@ class AlgorithmCompany extends Component {
 
   componentDidMount() {
     const userId = this.props.match.params.userId;
-    console.log("userId ", userId);
     this.loadPosts(userId);
     this.loadStudents();
   }
@@ -132,28 +131,27 @@ class AlgorithmCompany extends Component {
       if (a.suma > b.suma) return -1;
       return 0;
     });
-    console.log("sortirano ", sorted);
     return sorted;
   };
 
-  ispis = (capacity, lista) => {
-    var novi = [];
-    if (lista.length >= capacity) {
+  checkStudents = (capacity, list) => {
+    var students = [];
+    if (list.length >= capacity) {
       for (var i = 0; i < capacity; i++)
-        novi.push({
-          suma: lista[i].suma,
-          studentName: lista[i].studentName,
-          studentId: lista[i].studentId
+        students.push({
+          suma: list[i].suma,
+          studentName: list[i].studentName,
+          studentId: list[i].studentId
         });
-    } else if (lista.length < capacity) {
-      for (var i = 0; i < lista.length; i++)
-        novi.push({
-          suma: lista[i].suma,
-          studentName: lista[i].studentName,
-          studentId: lista[i].studentId
+    } else if (list.length < capacity) {
+      for (var i = 0; i < list.length; i++)
+        students.push({
+          suma: list[i].suma,
+          studentName: list[i].studentName,
+          studentId: list[i].studentId
         });
     }
-    return novi;
+    return students;
   };
   render() {
     const { posts, calculated } = this.state;
@@ -181,7 +179,7 @@ class AlgorithmCompany extends Component {
                   <div>
                     <ul>
                       {(sorted = this.sorting(row.list)) &&
-                        this.ispis(row.capacity, row.list).map(
+                        this.checkStudents(row.capacity, row.list).map(
                           (item, index) => {
                             return (
                               <li key={index}>
@@ -195,14 +193,6 @@ class AlgorithmCompany extends Component {
                         )}
                     </ul>
                   </div>
-
-                  {/* {row.list.map(innerRow => {
-                    return (
-                      <li key={innerRow.studentId}>
-                        {innerRow.studentName} {" suma: "} {innerRow.suma}
-                      </li>
-                    );
-                  })} */}
                 </ul>
               );
             })}

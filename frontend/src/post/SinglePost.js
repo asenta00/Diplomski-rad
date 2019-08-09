@@ -42,7 +42,6 @@ class SinglePost extends Component {
     const posterId = post.postedBy ? `/user/${post.postedBy._id}` : "/posts";
     const posterName = post.postedBy ? post.postedBy.name : "Nepoznat";
     return (
-      //   <div className="card col-md-4 mt-1 mb-1 ml-1 mr-1 mx-auto">
       <div className="card-body">
         <p className="card-text">
           <b>Opis prakse: </b>
@@ -87,13 +86,13 @@ class SinglePost extends Component {
                   to={`/post/edit/${post._id}`}
                   className="btn btn-raised btn-info ml-5"
                 >
-                  Uredi post
+                  Uredi oglas
                 </Link>
                 <button
                   onClick={this.deleteConfirmed}
                   className="btn btn-raised btn-danger ml-5"
                 >
-                  Izbriši post
+                  Izbriši oglas
                 </button>
               </>
             )}

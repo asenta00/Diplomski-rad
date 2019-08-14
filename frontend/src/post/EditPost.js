@@ -93,7 +93,9 @@ class EditPost extends Component {
   editPostForm = (title, body, fieldOfStudy, period, paid, capacity) => (
     <form>
       <div className="form-group">
-        <label className="text-muted">Naslov prakse</label>
+        <label className="text-muted" style={{ textAlign: "center" }}>
+          Naslov prakse
+        </label>
         <input
           onChange={this.handleChange("title")}
           type="text"
@@ -119,7 +121,7 @@ class EditPost extends Component {
           onChange={this.handleChange("fieldOfStudy")}
           value={fieldOfStudy}
         >
-          <option value="" selected disabled>
+          <option value="" className="selected" disabled>
             Odaberi smjer studija
           </option>
           <option value="Elektrotehnika">Elektrotehnika</option>
@@ -153,7 +155,7 @@ class EditPost extends Component {
           onChange={this.handleChange("paid")}
           value={paid}
         >
-          <option value="" selected disabled>
+          <option value="" className="selected" disabled>
             Mogući odabir: DA/NE
           </option>
           <option value="true">DA</option>
@@ -179,7 +181,9 @@ class EditPost extends Component {
       id
     } = this.state;
     if (redirectToProfile) {
-      return <Redirect to={`/user/${isAuthenticated().user._id}`} />;
+      if (isAuthenticated().user.role == "admin")
+        return <Redirect to={`/post/${id}`} />;
+      else return <Redirect to={`/user/${isAuthenticated().user._id}`} />;
     }
     return (
       <div className="container">

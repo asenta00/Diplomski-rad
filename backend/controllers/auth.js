@@ -6,6 +6,7 @@ const expressJwt = require("express-jwt");
 require("dotenv").config();
 let userExists;
 let user;
+
 exports.signup = async (req, res) => {
   if (req.body.role == "student" || req.body.role == "company") {
     userExists =

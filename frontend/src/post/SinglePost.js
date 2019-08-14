@@ -60,9 +60,14 @@ class SinglePost extends Component {
           <b>Plaćena praksa:</b> {post.paid ? "DA" : "NE"}
         </p>
         <hr />
-        <p className="font-italic mark">
-          <b>Autor:</b> <Link to={`${posterId}`}> {posterName} </Link>
-          {new Date(post.created).toLocaleDateString()}
+        <p className="card-text">
+          <b>Autor: </b>
+          <Link className="font-italic" to={`${posterId}`}>
+            {posterName}{" "}
+          </Link>
+          <label className="font-italic">
+            {new Date(post.created).toLocaleDateString()}
+          </label>
         </p>
         <hr />
         <div className="d-inline-block">
@@ -107,7 +112,12 @@ class SinglePost extends Component {
     }
     return (
       <div className="container">
-        <h2 className="display-4 mt-5 mb-5 mx-auto">{post.title}</h2>
+        <h2
+          className="display-4 mt-5 mb-5 mx-auto"
+          style={{ textAlign: "center" }}
+        >
+          {post.title}
+        </h2>
         {this.renderPost(post, postedById)}
       </div>
     );

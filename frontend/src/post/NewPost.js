@@ -158,7 +158,9 @@ class NewPost extends Component {
       error
     } = this.state;
     if (redirectToProfile) {
-      return <Redirect to={`/user/${user._id}`} />;
+      if (isAuthenticated().user.role == "admin")
+        return <Redirect to={`/posts`} />;
+      else return <Redirect to={`/user/${user._id}`} />;
     }
     return (
       <div className="container mt-5">

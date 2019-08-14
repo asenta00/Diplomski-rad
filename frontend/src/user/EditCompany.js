@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { isAuthenticated } from "../auth";
 import { Redirect } from "react-router-dom";
-import { read, update } from "./apiUser";
+import { read, update, updateUser } from "./apiUser";
+import DefaultProfile from "../images/avatarCompany.png";
 
 class EditCompany extends Component {
   constructor() {
@@ -16,7 +17,8 @@ class EditCompany extends Component {
       role: "company",
       error: "",
       redirectToProfile: false,
-      type: "password"
+      type: "password",
+      fileSize: 0
     };
     this.showHide = this.showHide.bind(this);
   }
@@ -49,11 +51,15 @@ class EditCompany extends Component {
     this.init(userId);
   }
   handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+    this.setState({ error: "" });
+    const value = name === "photo" ? event.target.files[0] : event.target.value;
+    const fileSize = name === "photo" ? event.target.files[0].size : 0;
+    this.userData.set(name, value);
+    this.setState({ [name]: value, fileSize });
   };
 
   isValid = () => {
-    const { name, body, email, contact, password } = this.state;
+    const { name, body, email, contact, password, fileSize } = this.state;
     if (name.length === 0) {
       this.setState({ error: "Polje Ime tvrtke ne smije biti prazno!" });
       return false;
@@ -76,6 +82,10 @@ class EditCompany extends Component {
         return false;
       }
     }
+    if (fileSize > 100000) {
+      this.setState({ error: "Veličina slike mora biti manja od 100kb!" });
+      return false;
+    }
     return true;
   };
   clickSubmit = event => {
@@ -93,9 +103,10 @@ class EditCompany extends Component {
       console.log(company);
       const companyId = this.props.userId;
       const token = isAuthenticated().token;
-      update(companyId, token, company).then(data => {
+      update(companyId, token, this.userData).then(data => {
         if (data.error) this.setState({ error: data.error });
         else {
+          updateUser(data);
           this.setState({
             redirectToProfile: true,
             error: ""
@@ -104,8 +115,21 @@ class EditCompany extends Component {
       });
     }
   };
+
+  redirect = event => {
+    this.setState({ redirectToProfile: true });
+  };
   signupForm = (name, body, email, contact, password) => (
     <form>
+      <div className="form-group">
+        <label className="text-muted">Profile Photo</label>
+        <input
+          onChange={this.handleChange("photo")}
+          type="file"
+          accept="image/*"
+          className="form-control"
+        />
+      </div>
       <div className="form-group">
         <label className="text-muted">Ime tvrtke</label>
         <input
@@ -163,6 +187,12 @@ class EditCompany extends Component {
       <button onClick={this.clickSubmit} className="btn btn-raised btn-primary">
         Spremi promjene
       </button>
+      <button
+        onClick={this.redirect}
+        className="btn btn-raised btn-warning ml-5"
+      >
+        Odustani
+      </button>
     </form>
   );
   render() {
@@ -179,6 +209,11 @@ class EditCompany extends Component {
     if (redirectToProfile) {
       return <Redirect to={`/user/${id}`} />;
     }
+    const photoUrl = id
+      ? `${
+          process.env.REACT_APP_API_URL
+        }/user/photo/${id}?${new Date().getTime()}`
+      : DefaultProfile;
     return (
       <div className="container mt-5">
         <div
@@ -187,6 +222,13 @@ class EditCompany extends Component {
         >
           {error}
         </div>
+        <img
+          style={{ height: "200px", width: "auto" }}
+          className="img-thumbnail"
+          src={photoUrl}
+          onError={i => (i.target.src = `${DefaultProfile}`)}
+          alt={name}
+        />
         {this.signupForm(name, body, email, contact, password)}
       </div>
     );

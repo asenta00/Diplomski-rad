@@ -53,12 +53,10 @@ class Profile extends Component {
     const role = user.role;
     if (redirectToSignin) return <Redirect to="/signin" />;
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8">
-            {role === "student" && <StudentProfile user={user} />}
-            {role === "company" && <CompanyProfile user={user} />}
-            {(isAuthenticated().user._id == user._id ||
+      <div>
+        {role === "student" && <StudentProfile user={user} />}
+        {role === "company" && <CompanyProfile user={user} />}
+        {/* {(isAuthenticated().user._id == user._id ||
               isAuthenticated().user.role === "admin") &&
               isAuthenticated().user && (
                 <div className="d-inline-block mt-5">
@@ -81,9 +79,9 @@ class Profile extends Component {
                     role={isAuthenticated().user.role}
                   />
                 </div>
-              )}
-          </div>
-          <div className="col-md-4">
+              )} */}
+
+        {/* <div className="col-md-4">
             {isAuthenticated().user._id === currentId &&
             isAuthenticated().user.role === "student" ? (
               ""
@@ -91,18 +89,17 @@ class Profile extends Component {
               ""
             ) : (
               <h2 className="mt-5 mb-5 ml-5">Kreirani oglasi</h2>
-            )}
+            )} */}
 
-            {/* {(isAuthenticated().user.role === "admin" ||
+        {/* {(isAuthenticated().user.role === "admin" ||
               isAuthenticated().user.role === "company") &&
             user.role == "student" ? (
               ""
             ) : (
               <h2 className="mt-5 mb-5 ml-5">Kreirani oglasi</h2>
             )} */}
-            <ShowPosts posts={posts} />
-          </div>
-        </div>
+        {/* <ShowPosts posts={posts} />
+          </div> */}
       </div>
     );
   }

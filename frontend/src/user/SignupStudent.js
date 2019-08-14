@@ -72,8 +72,10 @@ class SignupStudent extends Component {
       password
     };
     signupStudent(student).then(data => {
-      if (data.error) this.setState({ error: data.error });
-      else {
+      if (data.error) {
+        this.setState({ error: data.error });
+        window.scrollTo(0, 0);
+      } else {
         this.setState({
           firstName: "",
           lastName: "",
@@ -85,6 +87,7 @@ class SignupStudent extends Component {
           role: "student",
           paid: "",
           password: "",
+          password_confirm: "",
           error: "",
           open: true
         });
@@ -102,7 +105,8 @@ class SignupStudent extends Component {
     degree,
     interest,
     paid,
-    password
+    password,
+    password_confirm
   ) => (
     <form>
       <div className="form-group">
@@ -234,7 +238,8 @@ class SignupStudent extends Component {
       paid,
       password,
       error,
-      open
+      open,
+      password_confirm
     } = this.state;
     return (
       <div className="container">
@@ -261,7 +266,8 @@ class SignupStudent extends Component {
           degree,
           interest,
           paid,
-          password
+          password,
+          password_confirm
         )}
       </div>
     );

@@ -1,17 +1,23 @@
 exports.createPostValidator = (req, res, next) => {
-  req.check("title", "Write a title").notEmpty();
-  req.check("title", "Title must be between 4 to 500 characters").isLength({
-    min: 4,
-    max: 500
-  });
-  req.check("body", "Write a body").notEmpty();
-  req.check("body", "Body must be greater than 4 characters").isLength({
-    min: 4
-  });
-  req.check("period", "Write a period").notEmpty();
-  req.check("paid", "Paid yes/no?").notEmpty();
-  req.check("capacity", "Write a capacity").notEmpty();
-  req.check("capacity", "Capacity must be 1 or greater").isInt({ min: 1 });
+  req.check("title", "Polje naslov ne smije biti prazno.").notEmpty();
+  req
+    .check("title", "Naslov mora sadržavati između 4 i 500 karaktera.")
+    .isLength({
+      min: 4,
+      max: 500
+    });
+  req.check("body", "Polje Opis prakse ne smije biti prazno.").notEmpty();
+  req
+    .check("body", "Opis prakse mora sadržavati više od 4 karaktera.")
+    .isLength({
+      min: 4
+    });
+  req.check("period", "Polje Trajanje prakse ne smije biti prazno.").notEmpty();
+  req.check("paid", "Polje Plaćena praksa ne smije biti prazno.").notEmpty();
+  req.check("capacity", "Polje Broj studenata ne smije biti prazno").notEmpty();
+  req
+    .check("capacity", "Polje Broj studenata mora biti veće od 1.")
+    .isInt({ min: 1 });
 
   const errors = req.validationErrors();
   if (errors) {

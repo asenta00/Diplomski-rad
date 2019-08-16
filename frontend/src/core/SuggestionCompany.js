@@ -3,9 +3,8 @@ import { listByUser } from "../post/apiPost";
 import { listOfStudents } from "../user/apiUser";
 import { isAuthenticated } from "../auth/index";
 import { Link } from "react-router-dom";
-import { string } from "prop-types";
 
-class AlgorithmCompany extends Component {
+class SuggestionCompany extends Component {
   constructor() {
     super();
     this.state = {
@@ -202,4 +201,4 @@ class AlgorithmCompany extends Component {
   }
 }
 
-export default AlgorithmCompany;
+export default SuggestionCompany;

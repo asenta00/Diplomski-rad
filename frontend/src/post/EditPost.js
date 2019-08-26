@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { singlePost, update } from "./apiPost";
-import { isAuthenticated } from "../auth/index";
+import { isAuthenticated } from "../user/apiUser";
 import { Redirect } from "react-router-dom";
 
 class EditPost extends Component {

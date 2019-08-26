@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { isAuthenticated, signout } from "../auth/index";
+import { isAuthenticated, signout } from "./apiUser";
 import { remove } from "./apiUser";
 import { Redirect } from "react-router-dom";
 

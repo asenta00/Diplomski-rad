@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { isAuthenticated } from "../auth";
+import { isAuthenticated } from "./apiUser";
 import { Redirect, Link } from "react-router-dom";
 import StudentProfile from "./StudentProfile";
 import CompanyProfile from "./CompanyProfile";
-import DeleteUser from "./DeleteUser";
 import { read } from "./apiUser";
 import { listByUser } from "../post/apiPost";
-import ShowPosts from "./ShowPosts";
+
 class Profile extends Component {
   constructor() {
     super();
@@ -48,8 +47,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { redirectToSignin, user, posts } = this.state;
-    const currentId = this.props.match.params.userId;
+    const { redirectToSignin, user } = this.state;
     const role = user.role;
     if (redirectToSignin) return <Redirect to="/signin" />;
     return (

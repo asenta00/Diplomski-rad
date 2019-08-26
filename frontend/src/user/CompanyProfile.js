@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { isAuthenticated } from "../auth";
+import { isAuthenticated } from "./apiUser";
 import { Link } from "react-router-dom";
 import { listByUser } from "../post/apiPost";
 import DeleteUser from "./DeleteUser";

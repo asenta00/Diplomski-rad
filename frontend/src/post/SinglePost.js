@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { singlePost, remove } from "./apiPost";
 import { Link, Redirect } from "react-router-dom";
-import { isAuthenticated } from "../auth";
+import { isAuthenticated } from "../user/apiUser";
 
 class SinglePost extends Component {
   state = {

@@ -14,8 +14,8 @@ import PrivateRoute from "./auth/PrivateRoute";
 import Posts from "./post/Posts";
 import SinglePost from "./post/SinglePost";
 import EditPost from "./post/EditPost";
-import SuggestionStudent from "./core/SuggestionStudent";
-import SuggestionCompany from "./core/SuggestionCompany";
+import SuggestionStudent from "./user/SuggestionStudent";
+import SuggestionCompany from "./user/SuggestionCompany";
 
 const MainRouter = () => (
   <div>

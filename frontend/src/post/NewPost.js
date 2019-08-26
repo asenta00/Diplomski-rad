@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { isAuthenticated } from "../auth";
+import { isAuthenticated } from "../user/apiUser";
 import { Redirect } from "react-router-dom";
 import { create } from "./apiPost";
 

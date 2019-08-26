@@ -36,16 +36,31 @@ exports.signin = async (req, res) => {
   const companyExist = await Company.findOne({ email });
   const adminExist = await Admin.findOne({ email });
   if (studentExist) {
+    if (!studentExist.authenticate(password)) {
+      return res.status(401).json({
+        error: "Unesena je neispravna lozinka za navedenu email adresu."
+      });
+    }
     const token = jwt.sign({ _id: studentExist._id }, process.env.JWT_SECRET);
     res.cookie("t", token, { expire: new Date() + 9999 });
     const { _id, firstName, lastName, email, role } = studentExist;
     return res.json({ token, user: { _id, email, firstName, lastName, role } });
   } else if (companyExist) {
+    if (!companyExist.authenticate(password)) {
+      return res.status(401).json({
+        error: "Unesena je neispravna lozinka za navedenu email adresu."
+      });
+    }
     const token = jwt.sign({ _id: companyExist._id }, process.env.JWT_SECRET);
     res.cookie("t", token, { expire: new Date() + 9999 });
     const { _id, name, email, role } = companyExist;
     return res.json({ token, user: { _id, email, name, role } });
   } else if (adminExist) {
+    if (!adminExist.authenticate(password)) {
+      return res.status(401).json({
+        error: "Unesena je neispravna lozinka za navedenu email adresu."
+      });
+    }
     const token = jwt.sign({ _id: adminExist._id }, process.env.JWT_SECRET);
     res.cookie("t", token, { expire: new Date() + 9999 });
     const { _id, name, email, role } = adminExist;

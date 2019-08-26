@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { isAuthenticated } from "../auth";
+import { isAuthenticated } from "./apiUser";
 import EditStudent from "./EditStudent";
 import EditCompany from "./EditCompany";
 

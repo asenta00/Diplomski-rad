@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactChipInput from "react-chip-input";
-import { signupStudent } from "../auth";
+import { signupStudent } from "./apiUser";
 import { Link } from "react-router-dom";
 class SignupStudent extends Component {
   constructor() {
@@ -12,7 +12,7 @@ class SignupStudent extends Component {
       birthdate: Date,
       fieldOfStudy: "",
       degree: "",
-      interest: [],
+      interests: [],
       role: "student",
       paid: "",
       password: "",
@@ -30,14 +30,14 @@ class SignupStudent extends Component {
     });
   }
   addChip = value => {
-    const interest = this.state.interest.slice();
-    interest.push(value);
-    this.setState({ interest });
+    const interests = this.state.interests.slice();
+    interests.push(value);
+    this.setState({ interests });
   };
   removeChip = index => {
-    const interest = this.state.interest.slice();
-    interest.splice(index, 1);
-    this.setState({ interest });
+    const interests = this.state.interests.slice();
+    interests.splice(index, 1);
+    this.setState({ interests });
   };
   handleChange = name => event => {
     this.setState({ error: "" });
@@ -53,12 +53,12 @@ class SignupStudent extends Component {
       birthdate,
       fieldOfStudy,
       degree,
-      interest,
+      interests,
       role,
       paid,
       password
     } = this.state;
-
+    var interest = interests.join();
     const student = {
       firstName,
       lastName,
@@ -83,7 +83,7 @@ class SignupStudent extends Component {
           birthdate: Date,
           fieldOfStudy: "",
           degree: "",
-          interest: [],
+          interests: [],
           role: "student",
           paid: "",
           password: "",
@@ -103,10 +103,9 @@ class SignupStudent extends Component {
     birthdate,
     fieldOfStudy,
     degree,
-    interest,
+    interests,
     paid,
-    password,
-    password_confirm
+    password
   ) => (
     <form>
       <div className="form-group">
@@ -176,10 +175,10 @@ class SignupStudent extends Component {
         <label className="text-muted">Područje interesa</label>
         <ReactChipInput
           classes="class1 class2"
-          chips={interest}
+          chips={interests}
           onSubmit={value => this.addChip(value)}
           onRemove={index => this.removeChip(index)}
-          value={interest}
+          value={interests}
         />
       </div>
       <div className="form-group">
@@ -234,7 +233,7 @@ class SignupStudent extends Component {
       birthdate,
       fieldOfStudy,
       degree,
-      interest,
+      interests,
       paid,
       password,
       error,
@@ -264,7 +263,7 @@ class SignupStudent extends Component {
           birthdate,
           fieldOfStudy,
           degree,
-          interest,
+          interests,
           paid,
           password,
           password_confirm

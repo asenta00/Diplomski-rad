@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { listByUser } from "../post/apiPost";
-import { listOfStudents } from "../user/apiUser";
-import { isAuthenticated } from "../auth/index";
+import { listOfStudents } from "./apiUser";
+import { isAuthenticated } from "./apiUser";
 import { Link } from "react-router-dom";
 
 class SuggestionCompany extends Component {
@@ -19,12 +19,10 @@ class SuggestionCompany extends Component {
     // Split into array of tokens
     return text.match(/\S+/g);
   }
-
   // A function to validate a token
   validate(token) {
     return /\w{2,}/.test(token);
   }
-
   // Count the words
   termFreq(data) {
     var tokens = this.tokenize(data);
@@ -60,8 +58,9 @@ class SuggestionCompany extends Component {
       }
       // For every student calculate frequency
       for (var j = 0; j < students.length; j++) {
-        for (var i = 0; i < students[j].interest.length; i++) {
-          var key = students[j].interest[i].toLowerCase();
+        var interest = students[j].interest[0].toString().split(",");
+        for (var i = 0; i < interest.length; i++) {
+          var key = interest[i].toLowerCase();
           // is there word in tempDict?
           if (tempDict[key]) {
             dict[key] = dict[key] ? parseInt(dict[key]) + 1 : (dict[key] = 1);
@@ -75,16 +74,15 @@ class SuggestionCompany extends Component {
             suma = suma + listTf[item];
           }
         }
-
-        var pusham = {
+        var dataPush = {
           suma: suma,
           fieldOfStudy: fieldOfStudy,
           studentId: students[j]._id,
-          studentName: students[j].firstName
+          studentName: students[j].firstName,
+          studentSurname: students[j].lastName
         };
-
         if (fieldOfStudy === students[j].fieldOfStudy) {
-          list.push(pusham);
+          list.push(dataPush);
         }
       }
       calculated.push({
@@ -102,7 +100,6 @@ class SuggestionCompany extends Component {
       if (data.error) {
         console.log(data.error);
       } else {
-        console.log("Posts: ", data);
         this.setState({ posts: data });
       }
     });
@@ -135,11 +132,12 @@ class SuggestionCompany extends Component {
 
   checkStudents = (capacity, list) => {
     var students = [];
-    if (list.length >= capacity) {
-      for (var i = 0; i < capacity; i++)
+    if (list.length > capacity) {
+      for (var i = 0; i < capacity + 1; i++)
         students.push({
           suma: list[i].suma,
           studentName: list[i].studentName,
+          studentSurname: list[i].studentSurname,
           studentId: list[i].studentId
         });
     } else if (list.length < capacity) {
@@ -147,6 +145,15 @@ class SuggestionCompany extends Component {
         students.push({
           suma: list[i].suma,
           studentName: list[i].studentName,
+          studentSurname: list[i].studentSurname,
+          studentId: list[i].studentId
+        });
+    } else if (list.length == capacity) {
+      for (var i = 0; i < capacity; i++)
+        students.push({
+          suma: list[i].suma,
+          studentName: list[i].studentName,
+          studentSurname: list[i].studentSurname,
           studentId: list[i].studentId
         });
     }
@@ -170,6 +177,7 @@ class SuggestionCompany extends Component {
         <div className="container mt-5">
           {calculated &&
             calculated.map((row, index) => {
+              console.log(calculated);
               return (
                 <ul key={index}>
                   <div>
@@ -183,7 +191,7 @@ class SuggestionCompany extends Component {
                             return (
                               <li key={index}>
                                 <Link to={`/user/${item.studentId}`}>
-                                  {item.studentName}
+                                  {item.studentName} {item.studentSurname}
                                 </Link>
                                 <hr />
                               </li>

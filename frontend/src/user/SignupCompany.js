@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { signupCompany } from "../auth";
+import { signupCompany } from "./apiUser";
 import { Link } from "react-router-dom";
 class SignupCompany extends Component {
   constructor() {

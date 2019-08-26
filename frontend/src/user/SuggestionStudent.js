@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { list } from "../post/apiPost";
-import { read } from "../user/apiUser";
-import { isAuthenticated } from "../auth/index";
+import { read } from "./apiUser";
+import { isAuthenticated } from "./apiUser";
 import RenderPost from "../post/RenderPost";
 
 class SuggestionStudent extends Component {
@@ -19,12 +19,10 @@ class SuggestionStudent extends Component {
     // Split into array of tokens
     return text.match(/\S+/g);
   }
-
   // A function to validate a token
   validate(token) {
     return /\w{2,}/.test(token);
   }
-
   // Count the words
   termFreq(data) {
     var tokens = this.tokenize(data);
@@ -57,10 +55,9 @@ class SuggestionStudent extends Component {
           tempDict[token] = true;
         }
       }
-
-      for (var i = 0; i < user.interest.length; i++) {
-        var key = user.interest[i].toLowerCase();
-        // da li postoji rijec u post-u
+      var interest = user.interest[0].toString().split(",");
+      for (var i = 0; i < interest.length; i++) {
+        var key = interest[i].toLowerCase();
         if (tempDict[key]) {
           dict[key] = dict[key] ? parseInt(dict[key]) + 1 : (dict[key] = 1);
         }

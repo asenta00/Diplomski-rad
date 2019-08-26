@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { signin, authenticate } from "../auth";
+import { signin, authenticate } from "./apiUser";
 class Signin extends Component {
   constructor() {
     super();
@@ -38,7 +38,6 @@ class Signin extends Component {
     signin(user).then(data => {
       if (data.error) this.setState({ error: data.error, loading: false });
       else {
-        console.log(data.user["role"]); // da mi prikaze studenta
         authenticate(data, () => {
           this.setState({ redirectToReferer: true });
         });

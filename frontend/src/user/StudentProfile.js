@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { isAuthenticated } from "../auth";
+import { isAuthenticated } from "./apiUser";
 import { Link } from "react-router-dom";
 import DeleteUser from "./DeleteUser";
 import DefaultProfile from "../images/avatar.jpg";

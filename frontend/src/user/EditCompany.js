@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { isAuthenticated } from "../auth";
+import { isAuthenticated } from "./apiUser";
 import { Redirect } from "react-router-dom";
 import { read, update, updateUser } from "./apiUser";
 import DefaultProfile from "../images/avatarCompany.png";

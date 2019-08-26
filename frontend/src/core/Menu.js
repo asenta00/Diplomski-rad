@@ -3,7 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
 import { withRouter } from "react-router-dom";
-import { isAuthenticated, signout } from "../auth";
+import { isAuthenticated, signout } from "../user/apiUser";
 const isActive = (history, path) => {
   if (history.location.pathname === path) return { color: "	#20B2AA" };
   else return { color: "#000000" };
